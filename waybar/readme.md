@@ -20,7 +20,7 @@ This folder contain 2 variants configuration files Waybar with NixOS syntax:
 ![](https://github.com/xenon-xe54/trash-can-settings/blob/main/waybar/screenshots/hover_audio.png)
 
 ## Using
-Firstly, you need install [home-manager](https://github.com/nix-community/home-manager) and add [dependencies](https://github.com/xenon-xe54/trash-can-settings/edit/main/waybar/readme.md#dependencies) in your  `configuration.nix`
+Firstly, you need install [home-manager](https://github.com/nix-community/home-manager) and add dependencies in your  `configuration.nix`
 
 ### 1 (One configuration file)
  You may copy all configuration with this file into your `home.nix` and use it. But I don't recommend this way.
