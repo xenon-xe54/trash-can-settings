@@ -28,9 +28,13 @@ Secondly, add folder eww into .config folder or all file from eww folder this re
 
 (TIPS!!!)
 Cover-art from music-player don't implemented.
+
 Left button click for Bluetooth open Bluetuith.
+
 Middle button click for Bluetooth toggle bluetooth (on/off).
+
 In screenshot utility screenshots don't save the folder automatic. Please tap to button.
+
 Before running all modules check path's from screenshot utility (eww.yuck).
 
 
