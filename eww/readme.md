@@ -26,7 +26,8 @@ Firstly, you need add dependencies in your  `configuration.nix` or install this.
 Secondly, add folder eww into .config folder or all file from eww folder this repo into .config/eww/
 
 
-(TIPS!!!)
+### TIPS!!!
+
 Cover-art from music-player don't implemented.
 
 Left button click for Bluetooth open Bluetuith.
