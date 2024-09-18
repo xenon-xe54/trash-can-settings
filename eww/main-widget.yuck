@@ -1,0 +1,109 @@
+(defpoll full_clock_date :interval "1s" "date '+%d.%m.%y %H:%M:%S'")
+(defpoll calendar_day :interval "1m" "date '+%d'")
+(defpoll calendar_year :interval "1h" "date '+%Y'")
+
+(defpoll current_artist :interval "2s" :initial "Unknown" `playerctl metadata --format "{{artist}}" 2>/dev/null || echo "Unknown"`)
+(defpoll current_song :interval "2s" :initial "None" `playerctl metadata --format "{{title}}" 2>/dev/null || echo "None"`)
+
+
+(defwidget clock_module []
+    (eventbox :cursor "pointer"
+      (box :class "module" 
+      	   :space-evenly false 
+      	   :orientation "h" 
+      	   :spacing "3"
+        (button :class "clock_date_class"
+        		:style "background: #223b54;"
+                :onclick "eww open-many --toggle calendar" full_clock_date))))
+  
+
+(defwidget cal []
+  (box :class "cal" :orientation "v"
+   (box :class "cal-in"
+    (calendar :class "cal"
+       :day calendar_day
+       :year calendar_year))))
+
+(defwidget music []
+  (box :class "music"
+  	   :orientation "v" 
+	(box :class "music_box"
+		 :space-evenly false 
+		 :orientation "v" 
+		 :spacing "5"
+		 :valign "center"
+		 	(box :class "music_info" :orientation "h" 
+		 		 :halign "center"
+		 		 :valign "center"
+;; This block is sample for image-covers, not imlemented now
+;; Tip! If you implement this, please change halign in music_info to start. 
+;;		 		 (box :class "music_art"
+;;		 	 		  :halign "center"
+;;		 		 	  :valign "center")
+;;
+		 		 (box :class "music_info_text"
+		 	 		  :orientation "v"
+		 	 		  :halign "start"
+		 		 	  :valign "center"
+		 	   		  (label :class "music_artist" 
+		 	            	 :limit-width 40 
+		 	           		 :text "${current_artist}")
+		 	     	  (label :class "music_title" 
+		 	        		 :limit-width 8 
+		 	        		 :text "${current_song}")))
+		 	(box :class "music_controls"
+		 		 :spacing "5" 
+				(button :class "music_prev music_button"
+						:space-evenly false
+	        			:style "background: transparent;"
+	                	:onclick "playerctl previous"
+	                	(label :text "󰒮"))
+	 			(button :class "music_play_pause music_button"
+	 					:space-evenly false
+	 	        		:style "background: transparent;"
+	 	            	:onclick "playerctl play-pause"
+	 	            	(label :text "󰐎"))
+	 	  		(button :class "music_next music_button"
+	 	  				:space-evenly false
+	 	  	        	:style "background: transparent;"
+	 	  	        	:onclick "playerctl next"
+	 	  	        	(label :text "󰒭"))))))
+
+
+
+(defwidget notify-center []
+  (box :orientation "v"
+       :space-evenly false
+       :halign "center"
+       ))
+
+
+(defwidget left-column []
+  (box :orientation "v"
+       :space-evenly false
+       :halign "center"
+       (notify-center)))
+
+(defwidget right-column []
+  (box :orientation "v"
+       :space-evenly false
+       :halign "center"
+	(music)
+    (cal)))
+
+(defwidget popup []
+  (box :orientation "h"
+       :space-evenly false
+       :halign "center"
+	(left-column)
+    (right-column)))
+
+(defwindow calendar []
+  :monitor 0
+  :stacking "fg"
+  :geometry (geometry :x "25px"
+             :y "47"
+             :anchor "top center"
+             :width "300px"
+             :height "440px")         
+ (popup))
